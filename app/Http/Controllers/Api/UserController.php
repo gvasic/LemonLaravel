@@ -37,6 +37,7 @@ class UserController extends Controller
             $validator = Validator::make(Input::all(), [
                 'avatar' => [
                     'required',
+                    'image',
                     Rule::dimensions()->maxWidth(1000)->maxHeight(500),
                 ],
             ]);
