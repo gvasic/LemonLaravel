@@ -48,11 +48,16 @@ Route::group([
             'uses' => 'AuthController@login'
         ]);
 
+        Route::post('/user/update_avatar', [
+          'as' => 'user.update_avatar',
+          'uses' => 'UserController@update_avatar'
+      ]);
                 
         //Route::post('/get_user_details', 'HomeController@get_user_details');
         
         Route::group(['middleware' => 'jwt-auth'], function () {
             Route::get('/get_user_details', 'HomeController@get_user_details');
+           // Route::get('/user/update', 'UserController@update');
         });
 
 
