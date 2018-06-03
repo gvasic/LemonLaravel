@@ -57,4 +57,26 @@ class UserController extends Controller
         }
         return response()->json(['result' => $user]); // Return to My Profile Page
     }
+
+    //function to delete user avatar if user is loged in
+    public function delete_avatar(Request $request)    
+    {
+        try {
+            $user = JWTAuth::toUser($request->bearerToken());
+        } catch (\Tymon\JWTAuth\Exceptions\JWTException $e) {
+            if ($e instanceof \Tymon\JWTAuth\Exceptions\TokenInvalidException) {
+                return response()->json(['error'=>'Token is Invalid']);
+            } elseif ($e instanceof \Tymon\JWTAuth\Exceptions\TokenExpiredException) {
+                return response()->json(['error'=>'Token is Expired']);
+            } else {
+                return \Response::json([
+                        'Unauthorized',
+                    ], 422);
+            }
+        }
+        
+        $user->avatar = 'default.png';
+        $user->save();
+        return response()->json(['result' => $user]); // Return to My Profile Page
+    }    
 }

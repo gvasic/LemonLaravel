@@ -39,35 +39,40 @@ Route::group([
   //'prefix' => 'api/v1',
   'namespace' => 'Api'
 ], function () {
-        Route::post('/auth/register', [
+    Route::post('/auth/register', [
             'as' => 'auth.register',
             'uses' => 'AuthController@register'
         ]);
-        Route::post('/auth/login', [
+    Route::post('/auth/login', [
             'as' => 'auth.login',
             'uses' => 'AuthController@login'
         ]);
 
-        Route::post('/user/update_avatar', [
+    Route::post('/user/update_avatar', [
           'as' => 'user.update_avatar',
           'uses' => 'UserController@update_avatar'
       ]);
+
+     Route::post('/user/delete_avatar', [
+        'as' => 'user.delete_avatar',
+        'uses' => 'UserController@delete_avatar'
+    ]); 
                 
-        //Route::post('/get_user_details', 'HomeController@get_user_details');
+    //Route::post('/get_user_details', 'HomeController@get_user_details');
         
-        Route::group(['middleware' => 'jwt-auth'], function () {
-            Route::get('/get_user_details', 'HomeController@get_user_details');
-           // Route::get('/user/update', 'UserController@update');
-        });
+    Route::group(['middleware' => 'jwt-auth'], function () {
+        Route::get('/get_user_details', 'HomeController@get_user_details');
+        // Route::get('/user/update', 'UserController@update');
+    });
 
 
-        Route::get('/get_user_details',[
+    Route::get('/get_user_details', [
                 'as' => 'user.details',
                 'uses' => 'HomeController@get_user_details'
             ]);
 
 
-        Route::get('user/activation/{token}', 'AuthController@activateUser')->name('user.activate');
+    Route::get('user/activation/{token}', 'AuthController@activateUser')->name('user.activate');
 });
 
       //Route::get('user/activation/{token}', 'Auth\LoginController@activateUser')->name('user.activate');
