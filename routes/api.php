@@ -57,6 +57,11 @@ Route::group([
         'as' => 'user.delete_avatar',
         'uses' => 'UserController@delete_avatar'
     ]); 
+
+    Route::post('/user/reset_password', [
+      'as' => 'user.reset_password',
+      'uses' => 'UserController@reset_password'
+  ]); 
                 
     //Route::post('/get_user_details', 'HomeController@get_user_details');
         

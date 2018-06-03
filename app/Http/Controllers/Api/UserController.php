@@ -79,5 +79,34 @@ class UserController extends Controller
         $user->avatar = 'default.png';
         $user->save();
         return response()->json(['result' => $user]); // Return to My Profile Page
-    }    
+    }   
+    
+    //function to reset Password if user is loged in
+    public function reset_password(Request $request)
+    {
+        try {
+            $user = JWTAuth::toUser($request->bearerToken());
+        } catch (\Tymon\JWTAuth\Exceptions\JWTException $e) {
+            if ($e instanceof \Tymon\JWTAuth\Exceptions\TokenInvalidException) {
+                return response()->json(['error'=>'Token is Invalid']);
+            } elseif ($e instanceof \Tymon\JWTAuth\Exceptions\TokenExpiredException) {
+                return response()->json(['error'=>'Token is Expired']);
+            } else {
+                return \Response::json([
+                        'Unauthorized',
+                    ], 422);
+            }
+        }
+        $validator = Validator::make($request->all(), [
+                'old_password' => 'required',
+                'new_password'  =>  'required|min:8|confirmed',
+            ]);
+        if ($validator->fails()) {
+            return response()->json(['error'=>$validator->errors()], 401);
+        }
+            
+        $user->password = bcrypt($request->get('password'));
+        $user->save();
+        return response()->json(['result' => $user]); // Return to My Profile Page
+    }
 }
