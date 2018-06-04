@@ -33,7 +33,7 @@ Route::post('/auth/register', [
 */
 
 
-
+Route::get('test', 'HomeController@test');
 
 Route::group([
   //'prefix' => 'api/v1',
@@ -64,6 +64,11 @@ Route::group([
   ]); 
                 
     //Route::post('/get_user_details', 'HomeController@get_user_details');
+
+    Route::get('/test', [
+            'as' => 'test',
+            'uses' => 'HomeController@test'
+        ]);
         
     Route::group(['middleware' => 'jwt-auth'], function () {
         Route::get('/get_user_details', 'HomeController@get_user_details');

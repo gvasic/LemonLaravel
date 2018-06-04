@@ -31,9 +31,17 @@ class HomeController extends Controller
         } catch (\Tymon\JWTAuth\Exceptions\JWTException $e) {
 
             if ($e instanceof \Tymon\JWTAuth\Exceptions\TokenInvalidException){
-                return response()->json(['error'=>'Token is Invalid']);
+                return \Response::json([
+                        'Unauthorized',
+                    ], 422);
+
+                //return response()->json(['error'=>'Token is Invalid']);
             }else if ($e instanceof \Tymon\JWTAuth\Exceptions\TokenExpiredException){
-                return response()->json(['error'=>'Token is Expired']);
+                return \Response::json([
+                        'Unauthorized',
+                    ], 422);
+
+                //return response()->json(['error'=>'Token is Expired']);
             }else{
                 return \Response::json([
                         'Unauthorized',
@@ -42,5 +50,29 @@ class HomeController extends Controller
         }
 
         return response()->json(['result' => $user]);
+    }
+
+    public function test(){
+
+
+
+//        \Mail::raw('Text to e-mail', function ($message) {
+//                $message->to('breberinam@gmail.com');
+//            });
+
+        //take care of registration link
+
+//
+//        $token = 'dasdasda[sidasdasd';
+//
+//        $link = route('user.activate', $token);
+//        $message = sprintf('Activate account <a href="%s">%s</a>', $link, $link);
+//
+//        echo '<pre>';
+//        print_r($message);
+//        echo '</pre>';
+//        die();
+
+
     }
 }

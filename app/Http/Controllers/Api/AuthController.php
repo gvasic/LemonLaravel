@@ -59,14 +59,20 @@ class AuthController extends Controller
         }
 
         return response()->json([
-            'message' => 'Activation email sent',
-        ]);
+            'message' => 'Activation email sent'
+        ],200);
     }
 
     public function login(Request $request)
     {
 
         if(!$this->authenticated($request->get('email'))){
+
+
+//            echo '<pre>';
+//            print_r($request->get('email'));
+//            echo '</pre>';
+//            die();
 
             return response()->json([
                         'error' => 'User not activated'
@@ -100,7 +106,7 @@ class AuthController extends Controller
 
         if ($activation === null) {
             return response()->json([
-                    'error' => 'Link not valid'
+                    'message' => 'Link not valid'
                 ], 422);
         }
 
@@ -112,7 +118,10 @@ class AuthController extends Controller
 
         $this->activationRepo->deleteActivation($token);
 
-        return $user;
+        //return $user;
+        return response()->json([
+                'message' => 'Account activated'
+            ],200);
     }
 
     public function authenticated($email)

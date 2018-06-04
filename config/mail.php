@@ -56,8 +56,8 @@ return [
     */
 
     'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', 'marko.breberina@diwanee.com'),
-        'name' => env('MAIL_FROM_NAME', 'Photogram'),
+        'address' => env('MAIL_FROM_ADDRESS', 'office@dev.lemonadestand.app'),
+        'name' => env('MAIL_FROM_NAME', 'LSO'),
     ],
 
     /*

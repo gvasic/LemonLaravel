@@ -9,6 +9,8 @@ npm-debug.log
 bootstrap/compiled.php
 app/storage/
 
+storage/
+
 public/storage
 public/hot
 storage/*.key
